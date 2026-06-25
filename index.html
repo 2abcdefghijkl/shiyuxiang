@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 移动端适配核心标签 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>石宇翔 - 个人简历</title>
+    <style>
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        :root {
+            --main-color: #2563eb;
+            --light-blue: #dbeafe;
+            --dark-text: #1e293b;
+            --gray-text: #64748b;
+            --white: #ffffff;
+        }
+        body {
+            background-color: #f8fafc;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+        .nav-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--main-color);
+        }
+        .nav-list {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-list li a {
+            font-size: 16px;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-list li a:hover {
+            color: var(--main-color);
+        }
+        .nav-list li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--main-color);
+            transition: width 0.3s;
+        }
+        .nav-list li a:hover::after {
+            width: 100%;
+        }
+        /* 移动端汉堡菜单 */
+        .menu-btn {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        /* 首页banner */
+        .banner {
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .banner-content h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .banner-content .stu-id {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .banner-content p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.95;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--white);
+            color: var(--main-color);
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        /* 通用板块样式 */
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--main-color);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -12px;
+            border-radius: 2px;
+        }
+
+        /* 关于我 */
+        .about-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-img {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--light-blue);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: var(--main-color);
+        }
+        .about-text h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--main-color);
+        }
+        .about-text p {
+            color: var(--gray-text);
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        /* 技能板块 */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        .skill-card {
+            background: var(--white);
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .skill-card:hover {
+            transform: translateY(-8px);
+        }
+        .skill-card h4 {
+            font-size: 20px;
+            margin: 12px 0;
+            color: var(--main-color);
+        }
+        .skill-card p {
+            color: var(--gray-text);
+        }
+
+        /* 教育经历 */
+        .edu-item {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+        .edu-item h4 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .edu-item .time {
+            color: var(--main-color);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .edu-item p {
+            color: var(--gray-text);
+        }
+
+        /* 联系方式板块 */
+        .contact-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        .contact-card {
+            background: var(--white);
+            padding: 35px 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+        }
+        .contact-card h4 {
+            font-size: 20px;
+            margin: 15px 0 8px;
+        }
+        .contact-card p {
+            color: var(--gray-text);
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--dark-text);
+            color: #ccc;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* 响应式适配 - 手机端 */
+        @media (max-width: 768px) {
+            .nav-list {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background: #fff;
+                width: 60%;
+                height: calc(100vh - 70px);
+                padding: 40px 30px;
+                box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+                transition: right 0.4s ease;
+            }
+            .nav-list.active {
+                right: 0;
+            }
+            .menu-btn {
+                display: block;
+            }
+            .banner-content h1 {
+                font-size: 32px;
+            }
+            .about-wrap {
+                grid-template-columns: 1fr;
+            }
+            section {
+                padding: 50px 0;
+            }
+            .section-title {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container nav-wrap">
+            <div class="logo">石宇翔</div>
+            <ul class="nav-list" id="navList">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#skill">专业技能</a></li>
+                <li><a href="#edu">教育经历</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
+            <div class="menu-btn" id="menuBtn">☰</div>
+        </div>
+    </header>
+
+    <!-- 首页横幅 -->
+    <section class="banner" id="home">
+        <div class="container banner-content">
+            <h1>你好，我是石宇翔</h1>
+            <div class="stu-id">学号：2025381026</div>
+            <p>在校学生，热爱前端开发、网页设计，熟练使用HTML/CSS/原生JavaScript制作响应式网站，注重页面美观与用户体验。</p>
+            <a href="#contact" class="btn">联系我</a>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">关于我</h2>
+            <div class="about-wrap">
+                <div class="about-img">👨‍🎓</div>
+                <div class="about-text">
+                    <h3>石宇翔 | 在校计算机专业学生</h3>
+                    <p>学号：2025381026</p>
+                    <p>性格踏实细心，对网页前端开发抱有浓厚兴趣，擅长独立完成静态响应式网页开发，不依赖框架，熟练手写原生HTML、CSS、JavaScript。</p>
+                    <p>日常喜欢钻研页面布局、移动端适配、交互动画效果，能够根据需求完成简历官网、展示页面、静态管理页面等项目。</p>
+                    <p>学习能力强，善于解决页面兼容、布局错乱、动态交互等常见前端问题，具备良好的代码规范与排版习惯。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专业技能 -->
+    <section id="skill" style="background: #fff;">
+        <div class="container">
+            <h2 class="section-title">专业技能</h2>
+            <div class="skill-grid">
+                <div class="skill-card">
+                    <h4>HTML5</h4>
+                    <p>语义化标签、页面结构搭建</p>
+                </div>
+                <div class="skill-card">
+                    <h4>CSS3</h4>
+                    <p>Flex/Grid、响应式、动画、阴影</p>
+                </div>
+                <div class="skill-card">
+                    <h4>原生JS</h4>
+                    <p>DOM操作、事件、滚动交互、菜单</p>
+                </div>
+                <div class="skill-card">
+                    <h4>页面适配</h4>
+                    <p>手机/平板/电脑多端兼容</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育经历 -->
+    <section id="edu">
+        <div class="container">
+            <h2 class="section-title">教育经历</h2>
+            <div class="edu-item">
+                <h4>计算机相关专业</h4>
+                <div class="time">在读 | 学号：2025381026</div>
+                <p>主修计算机基础、网页开发、程序设计等课程，系统学习前端基础技术，多次完成静态网页课程作业，独立开发个人简历网站、校园展示页面等项目。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式板块 -->
+    <section id="contact" style="background: var(--light-blue);">
+        <div class="container">
+            <h2 class="section-title">联系方式</h2>
+            <div class="contact-wrap">
+                <div class="contact-card">
+                    <h4>姓名</h4>
+                    <p>石宇翔</p>
+                </div>
+                <div class="contact-card">
+                    <h4>学号</h4>
+                    <p>2025381026</p>
+                </div>
+                <div class="contact-card">
+                    <h4>电子邮箱</h4>
+                    <p>shiyuxiang@email.com</p>
+                </div>
+                <div class="contact-card">
+                    <h4>联系电话</h4>
+                    <p>138-0000-0000</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2026 石宇翔 | 个人简历网站 学号：2025381026</p>
+        </div>
+    </footer>
+
+    <!-- 原生JS交互逻辑 -->
+    <script>
+        // 移动端汉堡菜单切换
+        const menuBtn = document.getElementById('menuBtn');
+        const navList = document.getElementById('navList');
+        menuBtn.addEventListener('click', function() {
+            navList.classList.toggle('active');
+        });
+
+        // 点击导航链接关闭移动端菜单 + 平滑滚动
+        const navLinks = document.querySelectorAll('.nav-list a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 关闭移动端侧边菜单
+                navList.classList.remove('active');
+                // 获取目标区块ID
+                const targetId = this.getAttribute('href');
+                const targetDom = document.querySelector(targetId);
+                // 平滑滚动到对应区域
+                targetDom.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            })
+        });
+
+        // 滚动时导航栏轻微效果（可选）
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if(window.scrollY > 50) {
+                header.style.background = 'rgba(255,255,255,0.95)';
+            } else {
+                header.style.background = '#ffffff';
+            }
+        })
+    </script>
+</body>
+</html>
